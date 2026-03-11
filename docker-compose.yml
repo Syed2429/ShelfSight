@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  detection:
+    build: ./services/detection
+    ports: ["5001:5001"]
+    environment:
+      - PORT=5001
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  grouping:
+    build: ./services/grouping
+    ports: ["5002:5002"]
+    environment:
+      - PORT=5002
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  visualization:
+    build: ./services/visualization
+    ports: ["5003:5003"]
+    volumes:
+      - ./outputs:/app/outputs
+    environment:
+      - PORT=5003
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  gateway:
+    build: ./gateway
+    ports: ["5000:5000"]
+    environment:
+      - PORT=5000
+      - DETECTION_URL=http://detection:5001
+      - GROUPING_URL=http://grouping:5002
+      - VISUALIZATION_URL=http://visualization:5003
+    depends_on:
+      detection:
+        condition: service_healthy
+      grouping:
+        condition: service_healthy
+      visualization:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

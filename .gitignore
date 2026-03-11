@@ -1,0 +1,39 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# Model weights (large binary files)
+*.pt
+*.pth
+
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# Outputs (generated files)
+outputs/*.jpg
+outputs/*.png
+outputs/*.json
+
+# Archives
+*.zip
+*.tar.gz
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Test images (large, not needed in repo)
+testing images/
