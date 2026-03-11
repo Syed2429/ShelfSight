@@ -10,6 +10,7 @@ build/
 # Model weights (large binary files)
 *.pt
 *.pth
+!services/detection/best.pt
 
 # Environment
 .env
