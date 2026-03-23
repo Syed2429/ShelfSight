@@ -3,6 +3,38 @@
 An end-to-end AI pipeline that detects products on retail shelf images, groups them by brand/visual similarity, and returns annotated visualizations with a structured JSON response.
 
 ---
+---
+
+## What is this?
+
+ShelfSight is a production-grade retail shelf analysis pipeline that 
+takes a photo of a retail shelf and automatically:
+
+- **Detects every product** on the shelf using YOLOv10 trained on 
+  the SKU-110K retail dataset, with SAHI sliced inference for dense 
+  detection
+- **Groups products by brand** using color + spatial clustering — 
+  same brand products get the same color bounding box
+- **Returns a visual result** — an annotated image with color-coded 
+  bounding boxes and group labels
+- **Returns structured JSON** — product count, group assignments, 
+  bounding box coordinates, and timing breakdown
+
+### Example Output
+
+| Image | Products Detected | Brand Groups | Time |
+|---|---|---|---|
+| Salad dressing shelf | 225 | 26 | 22s |
+| Hair care shelf | 42 | 10 | 15s |
+| Biscuit shelf | 125 | 19 | 18s |
+
+### Use Cases
+- **Planogram compliance** — verify products are stocked correctly
+- **Out-of-stock detection** — identify empty shelf gaps
+- **Retail analytics** — count SKUs and brand distribution per shelf
+- **Inventory auditing** — automated shelf scanning without manual counting
+
+---
 
 ## Quick Start
 
